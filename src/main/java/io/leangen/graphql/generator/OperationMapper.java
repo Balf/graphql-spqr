@@ -201,6 +201,7 @@ public class OperationMapper {
         env.addType(javaType);
         GraphQLOutputType type = env.buildContext.typeMappers.getTypeMapper(env.rootElement, javaType, mappersToSkip).toGraphQLType(javaType, mappersToSkip, env);
         log(env.buildContext.validator.checkUniqueness(type, env.rootElement, javaType));
+        type = env.buildContext.transformers.transform(type, env.buildContext);
         env.buildContext.typeCache.completeType(type);
         return type;
     }

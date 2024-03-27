@@ -6,6 +6,7 @@ import graphql.schema.GraphQLArgument;
 import graphql.schema.GraphQLDirective;
 import graphql.schema.GraphQLFieldDefinition;
 import graphql.schema.GraphQLInputObjectField;
+import graphql.schema.GraphQLOutputType;
 import io.leangen.graphql.generator.BuildContext;
 import io.leangen.graphql.generator.OperationMapper;
 import io.leangen.graphql.metadata.Directive;
@@ -16,6 +17,10 @@ import io.leangen.graphql.metadata.OperationArgument;
 
 @SuppressWarnings("unused")
 public interface SchemaTransformer {
+
+    default GraphQLOutputType transformOutputType(GraphQLOutputType type, BuildContext buildContext) {
+        return type;
+    }
 
     default GraphQLFieldDefinition transformField(GraphQLFieldDefinition field, Operation operation, OperationMapper operationMapper, BuildContext buildContext) {
         return field;

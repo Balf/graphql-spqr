@@ -6,6 +6,7 @@ import graphql.schema.GraphQLArgument;
 import graphql.schema.GraphQLDirective;
 import graphql.schema.GraphQLFieldDefinition;
 import graphql.schema.GraphQLInputObjectField;
+import graphql.schema.GraphQLOutputType;
 import io.leangen.graphql.generator.BuildContext;
 import io.leangen.graphql.generator.OperationMapper;
 import io.leangen.graphql.metadata.Directive;
@@ -72,5 +73,13 @@ public class SchemaTransformerRegistry {
             directive = transformer.transformDirective(directive, directiveModel, operationMapper, buildContext);
         }
         return directive;
+    }
+
+    public GraphQLOutputType transform(GraphQLOutputType type, BuildContext buildContext) {
+        for (SchemaTransformer transformer : transformers) {
+            type = transformer.transformOutputType(type, buildContext);
+        }
+
+        return type;
     }
 }
